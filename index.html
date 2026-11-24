@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b46">
+<title>Indian Train Info | இந்திய ரயில் தகவல்</title>
+<style>
+:root{--navy:#102b46;--blue:#1769aa;--orange:#ff9d35;--bg:#f2f6fa;--text:#172f43;--muted:#64798a;--line:#dce5ed}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans Tamil",sans-serif}
+header{background:var(--navy);color:#fff;padding:15px max(18px,calc((100% - 1120px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-size:21px;font-weight:800}.logo b{color:#ffb45e}nav{display:flex;gap:17px;flex-wrap:wrap}nav a{color:#eaf3fa;text-decoration:none;font-size:14px}
+#language{background:transparent;color:white;border:1px solid #8ca2b7;border-radius:8px;padding:8px 12px}
+.hero{background:linear-gradient(120deg,#102b46,#1769aa);color:white;padding:38px 18px 55px}.inner{max-width:1120px;margin:auto}
+.hero h1{font-size:clamp(27px,5vw,42px);margin:0 0 10px}.hero p{margin:0;color:#e1edf7;line-height:1.5}
+main{max-width:1120px;margin:auto;padding:0 18px 40px}
+.panel{background:white;border-radius:16px;padding:20px;margin:-25px 0 26px;box-shadow:0 9px 30px #17324d18}
+.panel h2{font-size:20px;margin:0 0 15px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+input,select{width:100%;min-width:0;padding:13px;border:1px solid #cbd8e3;border-radius:9px;background:white;font-size:15px;color:#20384b}
+.row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px}
+button{cursor:pointer}.primary{border:0;background:var(--orange);color:#182c3b;font-weight:800;border-radius:9px;padding:13px 18px;font-size:15px}
+.notice{display:none;background:#fff5e8;color:#784500;padding:12px;border-radius:9px;margin-top:13px;font-size:14px;line-height:1.5}
+.small{color:var(--muted);font-size:12px;line-height:1.5;margin:12px 0 0}
+.section-title{font-size:22px;margin:28px 0 14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.card{background:white;padding:18px;border:1px solid #e5edf3;border-radius:13px}.icon{font-size:27px}.card h3{font-size:16px;margin:9px 0 6px}.card p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+.result{display:none;background:white;border:1px solid var(--line);border-radius:12px;padding:15px;margin-top:14px;overflow:auto}
+table{border-collapse:collapse;width:100%;min-width:540px;font-size:13px}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line)}th{background:#f4f8fb}
+footer{background:var(--navy);color:#dce9f3;text-align:center;padding:22px 18px;font-size:12px;line-height:1.6}
+@media(max-width:650px){.fields,.row2{grid-template-columns:1fr}.hero{padding-top:30px}header{align-items:flex-start}nav{order:3;width:100%}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">🚆 Indian <b>Train Info</b></div>
+ <nav><a href="#search" data-en="Find Trains" data-ta="ரயில்களைத் தேடு">Find Trains</a><a href="#features" data-en="Features" data-ta="வசதிகள்">Features</a><a href="#about" data-en="About" data-ta="எங்களைப் பற்றி">About</a></nav>
+ <button id="language" onclick="toggleLanguage()">தமிழ்</button>
+</header>
+<section class="hero"><div class="inner">
+ <h1 id="heroTitle">Plan your train journey with ease</h1>
+ <p id="heroSub">Search trains between stations and check class-wise seat availability.</p>
+</div></section>
+<main>
+<section class="panel" id="search">
+ <h2 id="searchTitle">Find trains from one station to another</h2>
+ <div class="fields">
+  <input id="from" placeholder="From station (e.g. Chennai Egmore)" aria-label="From station">
+  <input id="to" placeholder="To station (e.g. Madurai)" aria-label="To station">
+ </div>
+ <div class="row2">
+  <input id="date" type="date" aria-label="Journey date">
+  <select id="class"><option value="SL">Sleeper (SL)</option><option value="3A">AC 3 Tier (3A)</option><option value="2A">AC 2 Tier (2A)</option><option value="1A">AC First Class (1A)</option><option value="CC">AC Chair Car (CC)</option><option value="2S">Second Sitting (2S)</option></select>
+  <select id="quota"><option value="GN">General</option><option value="TQ">Tatkal</option><option value="LD">Ladies</option></select>
+ </div>
+ <button class="primary" style="margin-top:13px;width:100%" id="searchButton" onclick="findTrains()">Find Trains & Seat Availability</button>
+ <div class="notice" id="notice"></div>
+ <p class="small" id="disclaimer">This first version is a website preview. Live train schedules and seat availability will appear only after a verified railway data API is connected.</p>
+ <div class="result" id="result"></div>
+</section>
+<section id="features">
+ <h2 class="section-title" id="featuresTitle">Railway information in one place</h2>
+ <div class="grid">
+  <article class="card"><div class="icon">🚉</div><h3 data-en="Train Search" data-ta="ரயில் தேடல்">Train Search</h3><p data-en="Search trains by From station, To station and journey date." data-ta="தொடக்க நிலையம், சேருமிடம் மற்றும் பயணத் தேதியைக் கொண்டு ரயில்களைத் தேடுங்கள்.">Search trains by From station, To station and journey date.</p></article>
+  <article class="card"><div class="icon">💺</div><h3 data-en="Seat Availability" data-ta="இருக்கை கிடைப்பது">Seat Availability</h3><p data-en="Check availability by travel class and quota." data-ta="பயண வகுப்பு மற்றும் ஒதுக்கீட்டின் அடிப்படையில் இருக்கை கிடைப்பைப் பார்க்கவும்.">Check availability by travel class and quota.</p></article>
+  <article class="card"><div class="icon">🕒</div><h3 data-en="Train Timetable" data-ta="ரயில் கால அட்டவணை">Train Timetable</h3><p data-en="View train timings and station stops." data-ta="ரயில் நேரங்கள் மற்றும் நிறுத்தங்களைப் பார்க்கவும்.">View train timings and station stops.</p></article>
+  <article class="card"><div class="icon">🎫</div><h3 data-en="PNR Status" data-ta="PNR நிலை">PNR Status</h3><p data-en="PNR enquiry integration can be added when an approved data source is available." data-ta="அங்கீகரிக்கப்பட்ட தரவு சேவை கிடைத்ததும் PNR விசாரணையை இணைக்கலாம்.">PNR enquiry integration can be added when an approved data source is available.</p></article>
+  <article class="card"><div class="icon">📍</div><h3 data-en="Live Train Status" data-ta="நேரடி ரயில் நிலை">Live Train Status</h3><p data-en="Check running status after connecting a supported live data provider." data-ta="ஆதரிக்கப்படும் நேரடி தரவு சேவையை இணைத்த பிறகு ரயில் இயங்கும் நிலையைப் பார்க்கலாம்.">Check running status after connecting a supported live data provider.</p></article>
+  <article class="card"><div class="icon">📰</div><h3 data-en="Railway Updates" data-ta="ரயில்வே அறிவிப்புகள்">Railway Updates</h3><p data-en="A place for verified railway announcements and service updates." data-ta="சரிபார்க்கப்பட்ட ரயில்வே அறிவிப்புகள் மற்றும் சேவை மாற்றங்களுக்கான பகுதி.">A place for verified railway announcements and service updates.</p></article>
+ </div>
+</section>
+<section id="about"><h2 class="section-title" id="aboutTitle">About Indian Train Info</h2>
+ <div class="card"><p id="aboutText" style="font-size:14px;line-height:1.6;color:#536b7d;margin:0">Indian Train Info is an independent railway information website concept. It is not affiliated with Indian Railways or IRCTC. Confirm schedules, fares and booking details through official railway services.</p></div>
+</section>
+</main>
+<footer>© 2026 Indian Train Info · Independent information portal · Not an official Indian Railways or IRCTC website.</footer>
+<script>
+let tamil=false;
+function findTrains(){
+ const f=document.getElementById('from').value.trim(),t=document.getElementById('to').value.trim(),d=document.getElementById('date').value;
+ const n=document.getElementById('notice');n.style.display='block';
+ if(!f||!t||!d){n.textContent=tamil?'தொடக்க நிலையம், சேருமிடம், பயணத் தேதியை நிரப்பவும்.':'Please enter the From station, To station and journey date.';return;}
+ if(f.toLowerCase()===t.toLowerCase()){n.textContent=tamil?'தொடக்கமும் சேருமிடமும் வேறுபட்டதாக இருக்க வேண்டும்.':'From and To stations must be different.';return;}
+ n.textContent=tamil?'தேடல் விவரங்கள் தயார். உண்மையான ரயில் பெயர்கள் மற்றும் இருக்கை நிலையைப் பெற சரிபார்க்கப்பட்ட API இணைப்பு தேவை.':'Your search details are ready. A verified railway API connection is required to return real train names and live seat availability.';
+}
+function toggleLanguage(){
+ tamil=!tamil;document.documentElement.lang=tamil?'ta':'en';
+ document.getElementById('language').textContent=tamil?'English':'தமிழ்';
+ const map={heroTitle:['Plan your train journey with ease','உங்கள் ரயில் பயணத்தை எளிதாகத் திட்டமிடுங்கள்'],heroSub:['Search trains between stations and check class-wise seat availability.','நிலையங்களுக்கு இடையே ரயில்களைத் தேடி, வகுப்பு வாரியான இருக்கை கிடைப்பைப் பாருங்கள்.'],searchTitle:['Find trains from one station to another','ஒரு நிலையத்திலிருந்து மற்றொரு நிலையத்திற்கு ரயில்களைத் தேடுங்கள்'],featuresTitle:['Railway information in one place','ரயில்வே தகவல்கள் ஒரே இடத்தில்'],aboutTitle:['About Indian Train Info','Indian Train Info பற்றி'],aboutText:['Indian Train Info is an independent railway information website concept. It is not affiliated with Indian Railways or IRCTC. Confirm schedules, fares and booking details through official railway services.','Indian Train Info ஒரு சுயாதீன ரயில்வே தகவல் இணையதள மாதிரி. இது இந்திய ரயில்வே அல்லது IRCTC-யின் அதிகாரப்பூர்வ இணையதளம் அல்ல. பயண நேரம், கட்டணம் மற்றும் முன்பதிவு விவரங்களை அதிகாரப்பூர்வ சேவைகளில் உறுதிப்படுத்தவும்.']};
+ for(const [id,arr] of Object.entries(map))document.getElementById(id).textContent=arr[tamil?1:0];
+ document.querySelectorAll('[data-en]').forEach(el=>el.textContent=el.dataset[tamil?'ta':'en']);
+ document.getElementById('from').placeholder=tamil?'எங்கிருந்து? (நிலையம்)':'From station (e.g. Chennai Egmore)';
+ document.getElementById('to').placeholder=tamil?'எங்கே செல்ல வேண்டும்? (நிலையம்)':'To station (e.g. Madurai)';
+ document.getElementById('searchButton').textContent=tamil?'ரயில்கள் மற்றும் இருக்கைகளைத் தேடு':'Find Trains & Seat Availability';
+ document.getElementById('disclaimer').textContent=tamil?'இது முதல் கட்ட இணையதள மாதிரி. சரிபார்க்கப்பட்ட ரயில்வே API இணைத்த பிறகே நேரடி ரயில் அட்டவணை மற்றும் இருக்கை விவரங்கள் கிடைக்கும்.':'This first version is a website preview. Live train schedules and seat availability will appear only after a verified railway data API is connected.';
+}
+</script>
+</body></html>
