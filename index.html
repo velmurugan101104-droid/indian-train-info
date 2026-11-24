@@ -163,3 +163,52 @@ function changeLanguage(){
  });
 
  document
+ document.getElementById("from").placeholder = t[16];
+ document.getElementById("to").placeholder = t[17];
+
+ document.documentElement.lang = lang;
+
+ document.getElementById("result").innerHTML = "";
+}
+
+function findTrains(event) {
+ event.preventDefault();
+
+ const from = document.getElementById("from").value.trim();
+ const to = document.getElementById("to").value.trim();
+ const date = document.getElementById("date").value;
+ const cls = document.getElementById("class").value;
+
+ const tamil = document.getElementById("language").value === "ta";
+
+ const result = document.getElementById("result");
+
+ if (from.toLowerCase() === to.toLowerCase()) {
+  result.innerHTML = tamil
+   ? '<div class="notice">புறப்படும் மற்றும் சேரும் நிலையங்கள் வேறுபட்டதாக இருக்க வேண்டும்.</div>'
+   : '<div class="notice">From and To stations must be different.</div>';
+  return;
+ }
+
+ result.innerHTML = tamil
+ ? `<div class="notice">
+ <b>தேடல் விவரங்கள்</b><br><br>
+ புறப்படும் நிலையம்: ${from}<br>
+ சேரும் நிலையம்: ${to}<br>
+ பயண தேதி: ${date}<br>
+ பயண வகுப்பு: ${cls}<br><br>
+ உண்மையான ரயில் விவரங்களுக்கு அங்கீகரிக்கப்பட்ட ரயில்வே API இணைப்பு தேவை.
+ </div>`
+ : `<div class="notice">
+ <b>Search Details</b><br><br>
+ From: ${from}<br>
+ To: ${to}<br>
+ Journey Date: ${date}<br>
+ Class: ${cls}<br><br>
+ An authorized railway API connection is required for real train information.
+ </div>`;
+}
+</script>
+
+</body>
+</html>
