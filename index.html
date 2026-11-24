@@ -2,241 +2,164 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Indian Train Info</title>
-
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#eef3f8;
- color:#172b40;
-}
-header{
- background:#102b46;
- color:white;
- padding:18px;
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3f8;color:#172b40}
+header{background:#102b46;color:white;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .logo{font-size:21px;font-weight:bold}
-select,input,button{
- width:100%;
- padding:16px;
- margin:9px 0;
- border:1px solid #ccd5df;
- border-radius:12px;
- font-size:16px;
-}
-header select{
- width:auto;
- padding:8px;
- margin:0;
-}
-.hero{
- background:linear-gradient(120deg,#102b46,#1769aa);
- color:white;
- padding:45px 25px 90px;
-}
-.hero h1{font-size:32px}
-main{
- max-width:750px;
- margin:-45px auto 30px;
- padding:0 15px;
-}
-.panel{
- background:white;
- padding:25px;
- border-radius:22px;
- box-shadow:0 8px 25px #0001;
-}
-h2{margin-top:0}
-button{
- background:#ff9d2e;
- color:#172b40;
- font-weight:bold;
- border:0;
- cursor:pointer;
- font-size:18px;
-}
-button:active{opacity:.8}
-.notice{
- background:#fff4e5;
- color:#80551b;
- padding:18px;
- border-radius:12px;
- line-height:1.6;
- margin-top:15px;
-}
-.features{
- background:white;
- padding:22px;
- margin-top:20px;
- border-radius:15px;
- line-height:1.8;
-}
-footer{
- text-align:center;
- padding:25px;
- color:#667788;
-}
+header select{width:150px;padding:10px;border-radius:8px}
+.hero{background:linear-gradient(120deg,#102b46,#1769aa);color:white;padding:40px 22px 85px}
+.hero h1{font-size:30px}
+main{max-width:750px;margin:-45px auto 30px;padding:0 14px}
+.panel{background:white;padding:24px;border-radius:20px;box-shadow:0 8px 25px #0001}
+h2{font-size:22px}
+label{display:block;font-weight:bold;margin-top:13px}
+input,select,button{width:100%;padding:15px;margin:8px 0;border:1px solid #ccd5df;border-radius:11px;font-size:16px;background:white}
+button{background:#ff9d2e;color:#172b40;font-weight:bold;border:0;font-size:18px;cursor:pointer}
+.notice{background:#fff4e5;color:#80551b;padding:17px;border-radius:12px;margin-top:15px;line-height:1.7}
+.features{background:white;padding:22px;margin-top:20px;border-radius:15px;line-height:1.8}
+footer{text-align:center;padding:25px;color:#667788}
 </style>
 </head>
-
 <body>
 
 <header>
  <div class="logo">🚆 Indian Train Info</div>
  <select id="language" onchange="changeLanguage()">
   <option value="en">English</option>
+  <option value="as">অসমীয়া</option>
+  <option value="bn">বাংলা</option>
+  <option value="bo">बड़ो</option>
+  <option value="doi">डोगरी</option>
+  <option value="gu">ગુજરાતી</option>
+  <option value="hi">हिन्दी</option>
+  <option value="kn">ಕನ್ನಡ</option>
+  <option value="ks">کٲشُر</option>
+  <option value="kok">कोंकणी</option>
+  <option value="mai">मैथिली</option>
+  <option value="ml">മലയാളം</option>
+  <option value="mni">মৈতৈলোন্</option>
+  <option value="mr">मराठी</option>
+  <option value="ne">नेपाली</option>
+  <option value="or">ଓଡ଼ିଆ</option>
+  <option value="pa">ਪੰਜਾਬੀ</option>
+  <option value="sa">संस्कृतम्</option>
+  <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ</option>
+  <option value="sd">سنڌي</option>
   <option value="ta">தமிழ்</option>
+  <option value="te">తెలుగు</option>
+  <option value="ur">اردو</option>
  </select>
 </header>
 
 <section class="hero">
  <h1 id="title">Plan your train journey with ease</h1>
- <p id="subtitle">
- Search trains between stations and check class-wise seat availability.
- </p>
+ <p id="subtitle">Search trains between stations and check seat availability.</p>
 </section>
 
 <main>
 <div class="panel">
 
-<h2 id="heading">Find trains from one station to another</h2>
+<h2 id="heading">Find trains between stations</h2>
 
 <form onsubmit="findTrains(event)">
 
-<input id="from" list="stations"
- placeholder="From station (e.g. Chennai Egmore)" required>
+<label id="fromLabel">From Station</label>
+<input id="from" list="stations" placeholder="Enter starting station" required>
 
-<input id="to" list="stations"
- placeholder="To station (e.g. Madurai)" required>
+<label id="toLabel">To Station</label>
+<input id="to" list="stations" placeholder="Enter destination station" required>
 
 <datalist id="stations">
- <option value="Chennai Egmore (MS)">
- <option value="Chennai Central (MAS)">
- <option value="Madurai Junction (MDU)">
- <option value="Coimbatore Junction (CBE)">
- <option value="Tirunelveli (TEN)">
- <option value="Thoothukudi (TN)">
- <option value="Tiruchirappalli (TPJ)">
- <option value="Bengaluru City (SBC)">
- <option value="Mumbai Central (MMCT)">
- <option value="New Delhi (NDLS)">
+<option value="Chennai Egmore (MS)">
+<option value="Chennai Central (MAS)">
+<option value="Madurai Junction (MDU)">
+<option value="Thoothukudi (TN)">
+<option value="Tirunelveli (TEN)">
+<option value="Coimbatore Junction (CBE)">
+<option value="Tiruchirappalli (TPJ)">
+<option value="Bengaluru City (SBC)">
+<option value="New Delhi (NDLS)">
+<option value="Mumbai Central (MMCT)">
+<option value="Kolkata (KOAA)">
+<option value="Hyderabad (HYB)">
 </datalist>
 
+<label id="dateLabel">Journey Date</label>
 <input type="date" id="date" required>
 
+<label id="classLabel">Travel Class</label>
 <select id="class">
- <option value="SL">Sleeper (SL)</option>
- <option value="3A">AC 3 Tier (3A)</option>
- <option value="2A">AC 2 Tier (2A)</option>
- <option value="1A">AC First Class (1A)</option>
- <option value="CC">Chair Car (CC)</option>
- <option value="2S">Second Sitting (2S)</option>
+<option value="SL">Sleeper (SL)</option>
+<option value="3A">AC 3 Tier (3A)</option>
+<option value="2A">AC 2 Tier (2A)</option>
+<option value="1A">AC First Class (1A)</option>
+<option value="CC">Chair Car (CC)</option>
+<option value="2S">Second Sitting (2S)</option>
 </select>
 
+<label id="quotaLabel">Quota</label>
 <select id="quota">
- <option value="GN">General</option>
- <option value="TQ">Tatkal</option>
- <option value="LD">Ladies</option>
- <option value="SS">Senior Citizen</option>
+<option value="GN">General</option>
+<option value="TQ">Tatkal</option>
+<option value="LD">Ladies</option>
+<option value="SS">Senior Citizen</option>
 </select>
 
-<button type="submit" id="searchButton">
- Find Trains & Seat Availability
-</button>
-
+<button type="submit" id="searchButton">Find Trains & Seat Availability</button>
 </form>
 
 <div id="result"></div>
 
 <div class="notice" id="disclaimer">
- This is a website preview. Live train schedules and seat availability
- will be displayed only after connecting an authorized railway data API.
- Sample information will not be shown as live availability.
+This is a website preview. Real train schedules and live seat availability require an authorized railway data API.
 </div>
-
 </div>
 
 <div class="features">
- <h2 id="featureTitle">Railway information in one place</h2>
- <p>🚆 Train Search</p>
- <p>📅 Journey Date</p>
- <p>💺 Class-wise Seat Availability</p>
- <p>🎫 RAC and Waiting List Information</p>
- <p>🌐 Multiple Language Support</p>
+<h2 id="featureTitle">Railway information in one place</h2>
+<p>🚆 <span id="f1">Train Search</span></p>
+<p>📅 <span id="f2">Journey Date</span></p>
+<p>💺 <span id="f3">Class-wise Seat Availability</span></p>
+<p>🎫 <span id="f4">RAC and Waiting List</span></p>
+<p>🌐 <span id="f5">22 Indian Languages</span></p>
 </div>
 </main>
 
-<footer>
- © 2026 Indian Train Info
-</footer>
+<footer>© 2026 Indian Train Info</footer>
 
 <script>
 const today = new Date();
 document.getElementById("date").min =
- today.toISOString().split("T")[0];
+today.toISOString().split("T")[0];
 
-function findTrains(event){
- event.preventDefault();
+const translations = {
+en:["Plan your train journey with ease","Search trains between stations and check seat availability.","Find trains between stations","From Station","To Station","Journey Date","Travel Class","Quota","Find Trains & Seat Availability","Railway information in one place","Train Search","Journey Date","Class-wise Seat Availability","RAC and Waiting List","22 Indian Languages","This is a website preview. Real train schedules and live seat availability require an authorized railway data API.","Enter starting station","Enter destination station"],
+ta:["உங்கள் ரயில் பயணத்தை எளிதாக திட்டமிடுங்கள்","ரயில்களைத் தேடி இருக்கை நிலையை அறியுங்கள்.","ரயில்களைத் தேடுங்கள்","புறப்படும் நிலையம்","சேரும் நிலையம்","பயண தேதி","பயண வகுப்பு","ஒதுக்கீடு","ரயில்களைத் தேடுங்கள்","அனைத்து ரயில் தகவல்களும் ஒரே இடத்தில்","ரயில் தேடல்","பயண தேதி","வகுப்பு வாரியான இருக்கை நிலை","RAC மற்றும் காத்திருப்போர் பட்டியல்","22 இந்திய மொழிகள்","இது இணையதள முன்னோட்டம். உண்மையான ரயில் நேரம் மற்றும் இருக்கை நிலைக்கு அங்கீகரிக்கப்பட்ட ரயில்வே API தேவை.","புறப்படும் நிலையத்தை உள்ளிடவும்","சேரும் நிலையத்தை உள்ளிடவும்"],
+hi:["अपनी रेल यात्रा आसानी से प्लान करें","स्टेशनों के बीच ट्रेनें और सीट उपलब्धता खोजें।","ट्रेन खोजें","प्रस्थान स्टेशन","गंतव्य स्टेशन","यात्रा की तारीख","यात्रा श्रेणी","कोटा","ट्रेन और सीट उपलब्धता खोजें","सभी रेलवे जानकारी एक जगह","ट्रेन खोज","यात्रा की तारीख","श्रेणी के अनुसार सीट उपलब्धता","RAC और प्रतीक्षा सूची","22 भारतीय भाषाएँ","यह वेबसाइट का पूर्वावलोकन है। वास्तविक जानकारी के लिए अधिकृत रेलवे API आवश्यक है।","प्रस्थान स्टेशन दर्ज करें","गंतव्य स्टेशन दर्ज करें"],
+te:["మీ రైలు ప్రయాణాన్ని సులభంగా ప్లాన్ చేయండి","రైళ్లను మరియు సీట్ల లభ్యతను వెతకండి.","రైళ్లను వెతకండి","ప్రారంభ స్టేషన్","గమ్యస్థానం","ప్రయాణ తేదీ","ప్రయాణ తరగతి","కోటా","రైళ్లు మరియు సీట్ల లభ్యత వెతకండి","అన్ని రైల్వే సమాచారం ఒకే చోట","రైలు శోధన","ప్రయాణ తేదీ","తరగతి వారీగా సీట్ల లభ్యత","RAC మరియు వెయిటింగ్ లిస్ట్","22 భారతీయ భాషలు","ఇది వెబ్‌సైట్ ప్రివ్యూ. నిజమైన సమాచారం కోసం అధికారిక రైల్వే API అవసరం.","ప్రారంభ స్టేషన్ నమోదు చేయండి","గమ్యస్థానం నమోదు చేయండి"],
+ml:["നിങ്ങളുടെ ട്രെയിൻ യാത്ര എളുപ്പത്തിൽ ആസൂത്രണം ചെയ്യൂ","ട്രെയിനുകളും സീറ്റ് ലഭ്യതയും തിരയുക.","ട്രെയിനുകൾ തിരയുക","പുറപ്പെടുന്ന സ്റ്റേഷൻ","ലക്ഷ്യ സ്റ്റേഷൻ","യാത്രാ തീയതി","യാത്രാ ക്ലാസ്","ക്വോട്ട","ട്രെയിനുകളും സീറ്റ് ലഭ്യതയും തിരയുക","റെയിൽവേ വിവരങ്ങൾ ഒരിടത്ത്","ട്രെയിൻ തിരയൽ","യാത്രാ തീയതി","ക്ലാസ് അനുസരിച്ചുള്ള സീറ്റ് ലഭ്യത","RAC, വെയിറ്റിംഗ് ലിസ്റ്റ്","22 ഇന്ത്യൻ ഭാഷകൾ","ഇത് വെബ്സൈറ്റ് പ്രിവ്യൂ ആണ്. യഥാർത്ഥ വിവരങ്ങൾക്ക് അംഗീകൃത റെയിൽവേ API ആവശ്യമാണ്.","പുറപ്പെടുന്ന സ്റ്റേഷൻ നൽകുക","ലക്ഷ്യ സ്റ്റേഷൻ നൽകുക"],
+kn:["ನಿಮ್ಮ ರೈಲು ಪ್ರಯಾಣವನ್ನು ಸುಲಭವಾಗಿ ಯೋಜಿಸಿ","ರೈಲುಗಳು ಮತ್ತು ಸೀಟು ಲಭ್ಯತೆಯನ್ನು ಹುಡುಕಿ.","ರೈಲುಗಳನ್ನು ಹುಡುಕಿ","ಪ್ರಾರಂಭದ ನಿಲ್ದಾಣ","ಗಮ್ಯ ನಿಲ್ದಾಣ","ಪ್ರಯಾಣದ ದಿನಾಂಕ","ಪ್ರಯಾಣದ ವರ್ಗ","ಕೋಟಾ","ರೈಲು ಮತ್ತು ಸೀಟು ಲಭ್ಯತೆ ಹುಡುಕಿ","ಎಲ್ಲಾ ರೈಲ್ವೆ ಮಾಹಿತಿ ಒಂದೇ ಸ್ಥಳದಲ್ಲಿ","ರೈಲು ಹುಡುಕಾಟ","ಪ್ರಯಾಣದ ದಿನಾಂಕ","ವರ್ಗವಾರು ಸೀಟು ಲಭ್ಯತೆ","RAC ಮತ್ತು ಕಾಯುವ ಪಟ್ಟಿ","22 ಭಾರತೀಯ ಭಾಷೆಗಳು","ಇದು ವೆಬ್‌ಸೈಟ್ ಪೂರ್ವವೀಕ್ಷಣೆ. ನೈಜ ಮಾಹಿತಿಗೆ ಅಧಿಕೃತ ರೈಲ್ವೆ API ಅಗತ್ಯವಿದೆ.","ಪ್ರಾರಂಭದ ನಿಲ್ದಾಣ ನಮೂದಿಸಿ","ಗಮ್ಯ ನಿಲ್ದಾಣ ನಮೂದಿಸಿ"],
+bn:["আপনার ট্রেন যাত্রা সহজে পরিকল্পনা করুন","ট্রেন এবং আসনের উপলব্ধতা খুঁজুন।","ট্রেন খুঁজুন","শুরুর স্টেশন","গন্তব্য স্টেশন","যাত্রার তারিখ","যাত্রার শ্রেণী","কোটা","ট্রেন ও আসন খুঁজুন","সমস্ত রেল তথ্য এক জায়গায়","ট্রেন অনুসন্ধান","যাত্রার তারিখ","শ্রেণী অনুযায়ী আসন","RAC এবং অপেক্ষমাণ তালিকা","২২টি ভারতীয় ভাষা","এটি ওয়েবসাইটের প্রিভিউ। প্রকৃত তথ্যের জন্য অনুমোদিত রেলওয়ে API প্রয়োজন।","শুরুর স্টেশন লিখুন","গন্তব্য স্টেশন লিখুন"],
+gu:["તમારી ટ્રેન મુસાફરી સરળતાથી આયોજન કરો","ટ્રેન અને સીટની ઉપલબ્ધતા શોધો.","ટ્રેન શોધો","પ્રારંભિક સ્ટેશન","ગંતવ્ય સ્ટેશન","મુસાફરીની તારીખ","મુસાફરીનો વર્ગ","ક્વોટા","ટ્રેન અને સીટ શોધો","બધી રેલવે માહિતી એક જ જગ્યાએ","ટ્રેન શોધ","મુસાફરીની તારીખ","વર્ગ પ્રમાણે સીટ ઉપલબ્ધતા","RAC અને વેઇટિંગ લિસ્ટ","22 ભારતીય ભાષાઓ","આ વેબસાઇટનું પૂર્વાવલોકન છે. વાસ્તવિક માહિતી માટે અધિકૃત રેલવે API જરૂરી છે.","પ્રારંભિક સ્ટેશન દાખલ કરો","ગંતવ્ય સ્ટેશન દાખલ કરો"],
+mr:["तुमचा रेल्वे प्रवास सहज नियोजित करा","ट्रेन आणि सीट उपलब्धता शोधा.","ट्रेन शोधा","प्रस्थान स्थानक","गंतव्य स्थानक","प्रवासाची तारीख","प्रवासाचा वर्ग","कोटा","ट्रेन आणि सीट उपलब्धता शोधा","सर्व रेल्वे माहिती एकाच ठिकाणी","ट्रेन शोध","प्रवासाची तारीख","वर्गानुसार सीट उपलब्धता","RAC आणि प्रतीक्षा यादी","22 भारतीय भाषा","ही वेबसाइटची पूर्वदृश्य आवृत्ती आहे. खऱ्या माहितीसाठी अधिकृत रेल्वे API आवश्यक आहे.","प्रस्थान स्थानक लिहा","गंतव्य स्थानक लिहा"],
+pa:["ਆਪਣੀ ਰੇਲ ਯਾਤਰਾ ਆਸਾਨੀ ਨਾਲ ਯੋਜਨਾ ਬਣਾਓ","ਰੇਲਾਂ ਅਤੇ ਸੀਟਾਂ ਦੀ ਉਪਲਬਧਤਾ ਲੱਭੋ।","ਰੇਲਾਂ ਲੱਭੋ","ਸ਼ੁਰੂਆਤੀ ਸਟੇਸ਼ਨ","ਮੰਜ਼ਿਲ ਸਟੇਸ਼ਨ","ਯਾਤਰਾ ਦੀ ਮਿਤੀ","ਯਾਤਰਾ ਸ਼੍ਰੇਣੀ","ਕੋਟਾ","ਰੇਲਾਂ ਅਤੇ ਸੀਟਾਂ ਲੱਭੋ","ਸਾਰੀ ਰੇਲਵੇ ਜਾਣਕਾਰੀ ਇੱਕ ਥਾਂ","ਰੇਲ ਖੋਜ","ਯਾਤਰਾ ਦੀ ਮਿਤੀ","ਸ਼੍ਰੇਣੀ ਅਨੁਸਾਰ ਸੀਟਾਂ","RAC ਅਤੇ ਉਡੀਕ ਸੂਚੀ","22 ਭਾਰਤੀ ਭਾਸ਼ਾਵਾਂ","ਇਹ ਵੈੱਬਸਾਈਟ ਦਾ ਪੂਰਵਦਰਸ਼ਨ ਹੈ। ਅਸਲ ਜਾਣਕਾਰੀ ਲਈ ਅਧਿਕਾਰਤ ਰੇਲਵੇ API ਦੀ ਲੋੜ ਹੈ।","ਸ਼ੁਰੂਆਤੀ ਸਟੇਸ਼ਨ ਦਰਜ ਕਰੋ","ਮੰਜ਼ਿਲ ਸਟੇਸ਼ਨ ਦਰਜ ਕਰੋ"],
+or:["ଆପଣଙ୍କ ରେଳ ଯାତ୍ରା ସହଜରେ ଯୋଜନା କରନ୍ତୁ","ଟ୍ରେନ୍ ଏବଂ ସିଟ୍ ଉପଲବ୍ଧତା ଖୋଜନ୍ତୁ।","ଟ୍ରେନ୍ ଖୋଜନ୍ତୁ","ଆରମ୍ଭ ଷ୍ଟେସନ୍","ଗନ୍ତବ୍ୟ ଷ୍ଟେସନ୍","ଯାତ୍ରା ତାରିଖ","ଯାତ୍ରା ଶ୍ରେଣୀ","କୋଟା","ଟ୍ରେନ୍ ଏବଂ ସିଟ୍ ଖୋଜନ୍ତୁ","ସମସ୍ତ ରେଳ ସୂଚନା ଗୋଟିଏ ସ୍ଥାନରେ","ଟ୍ରେନ୍ ଖୋଜ","ଯାତ୍ରା ତାରିଖ","ଶ୍ରେଣୀ ଅନୁଯାୟୀ ସିଟ୍","RAC ଏବଂ ଅପେକ୍ଷା ତାଲିକା","୨୨ଟି ଭାରତୀୟ ଭାଷା","ଏହା ଏକ ୱେବସାଇଟ୍ ପୂର୍ବଦୃଶ୍ୟ। ପ୍ରକୃତ ସୂଚନା ପାଇଁ ଅନୁମୋଦିତ ରେଳ API ଆବଶ୍ୟକ।","ଆରମ୍ଭ ଷ୍ଟେସନ୍ ଲେଖନ୍ତୁ","ଗନ୍ତବ୍ୟ ଷ୍ଟେସନ୍ ଲେଖନ୍ତୁ"]
+};
 
- const from = document.getElementById("from").value.trim();
- const to = document.getElementById("to").value.trim();
- const date = document.getElementById("date").value;
- const cls = document.getElementById("class").value;
-
- const result = document.getElementById("result");
-
- if(from.toLowerCase() === to.toLowerCase()){
-  result.innerHTML =
-  '<div class="notice">From and To stations must be different.</div>';
-  return;
- }
-
- result.innerHTML =
- '<div class="notice">' +
- '<b>Search details received!</b><br><br>' +
- 'From: ' + from + '<br>' +
- 'To: ' + to + '<br>' +
- 'Journey Date: ' + date + '<br>' +
- 'Class: ' + cls + '<br><br>' +
- 'A verified railway API connection is required to show real train names and live seat availability.' +
- '</div>';
-}
+// Other scheduled languages currently show English text until their
+// complete reviewed translations are added.
+const english = translations.en;
+const keys = ["title","subtitle","heading","fromLabel","toLabel","dateLabel","classLabel","quotaLabel","searchButton","featureTitle","f1","f2","f3","f4","f5","disclaimer"];
 
 function changeLanguage(){
- const tamil = document.getElementById("language").value === "ta";
+ const lang = document.getElementById("language").value;
+ const t = translations[lang] || english;
 
- document.getElementById("title").textContent =
- tamil ? "உங்கள் ரயில் பயணத்தை எளிதாக திட்டமிடுங்கள்"
-       : "Plan your train journey with ease";
+ keys.forEach((id,i)=>{
+  document.getElementById(id).textContent = t[i];
+ });
 
- document.getElementById("subtitle").textContent =
- tamil ? "ரயில்களைத் தேடி வகுப்பு வாரியான இருக்கை நிலையை அறியுங்கள்."
-       : "Search trains between stations and check class-wise seat availability.";
-
- document.getElementById("heading").textContent =
- tamil ? "ஒரு நிலையத்திலிருந்து மற்றொரு நிலையத்திற்கு ரயில்களைத் தேடுங்கள்"
-       : "Find trains from one station to another";
-
- document.getElementById("searchButton").textContent =
- tamil ? "ரயில்கள் மற்றும் இருக்கை நிலையைத் தேடுங்கள்"
-       : "Find Trains & Seat Availability";
-
- document.getElementById("featureTitle").textContent =
- tamil ? "அனைத்து ரயில் தகவல்களும் ஒரே இடத்தில்"
-       : "Railway information in one place";
-
- document.getElementById("disclaimer").textContent =
- tamil
- ? "இது இணையதள முன்னோட்டம். உண்மையான ரயில் நேரம் மற்றும் இருக்கை நிலையைப் பெற அங்கீகரிக்கப்பட்ட ரயில்வே API இணைப்பு தேவை."
- : "This is a website preview. Live train schedules and seat availability will be displayed only after connecting an authorized railway data API.";
-}
-</script>
-
-</body>
-</html>
+ document
