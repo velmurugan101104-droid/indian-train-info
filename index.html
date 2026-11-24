@@ -204,6 +204,31 @@ const keys = ["title","subtitle","heading","fromLabel","toLabel","dateLabel","cl
 
 function changeLanguage(){
  const lang = document.getElementById("language").value;
+ const t = translations[lang] || translations.en;
+ const cq = classQuota[lang] || classQuota.en;
+
+ keys.forEach((id,i)=>{
+  document.getElementById(id).textContent = t[i];
+ });
+
+ document.getElementById("from").placeholder = t[16];
+ document.getElementById("to").placeholder = t[17];
+
+ const classSelect = document.getElementById("class");
+ const quotaSelect = document.getElementById("quota");
+
+ for(let i=0;i<6;i++){
+  classSelect.options[i].text = cq[i];
+ }
+
+ for(let i=0;i<4;i++){
+  quotaSelect.options[i].text = cq[i+6];
+ }
+
+ document.documentElement.lang = lang;
+ document.getElementById("result").innerHTML = "";
+}
+ const lang = document.getElementById("language").value;
  const t = translations[lang] || english;
 
  keys.forEach((id,i)=>{
